@@ -1,53 +1,98 @@
-// get method (show every product inside menu with forEach)
-fetch("http://localhost:3000/menu")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(`Avaiable menu: `);
-    data.forEach((product) => console.log(product));
-  })
-  .catch((error) => console.error(`Error obtaining data: ${error}`));
+// Adds a new product to the API
+function addProduct() {
+  const name = document.getElementById("name").value.trim();
+  const price = parseFloat(document.getElementById("price").value);
 
-// post method to create new data and validates with function validateProduct if the product doesn't exists and the price is a number
-const newProduct = { id: 6, name: "seitan sushi burrito", price: 32000 };
+  if (!name || isNaN(price)) return;
 
-if (validateProduct(newProduct)) {
+  const newProduct = { name, price };
+
   fetch("http://localhost:3000/menu", {
     method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(newProduct),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newProduct)
   })
-    .then((response) => response.json())
-    .then((data) => console.log(`New product added: ${data}`))
-    .catch((error) => console.error(`Error adding data: ${error}`));
+    .then(res => res.json())
+    .then(() => {
+      clearFields();
+      getProducts();
+    });
 }
 
-//put method to modify existing data and validates with function validateProduct if the product doesn't exists and the price is a number
-const updatedProduct = { name: "pepita roll", price: 29000 };
+// Gets all products from the API
+function getProducts() {
+  fetch("http://localhost:3000/menu")
+    .then(res => res.json())
+    .then(renderList);
+}
 
-if (validateProduct(updatedProduct)) {
-  fetch("http://localhost:3000/menu/3", {
+// Renders the list of products in the UI
+function renderList(products) {
+  const list = document.getElementById("product-list");
+  list.innerHTML = "";
+
+  products.forEach(p => {
+    const li = document.createElement("li");
+    li.textContent = `${p.id}. ${p.name} - $${p.price} `;
+
+    const edit = document.createElement("button");
+    edit.textContent = "Edit";
+    edit.onclick = () => prepareEdit(p);
+
+    const remove = document.createElement("button");
+    remove.textContent = "Delete";
+    remove.onclick = () => deleteProduct(p.id);
+
+    li.appendChild(edit);
+    li.appendChild(remove);
+    list.appendChild(li);
+  });
+}
+
+// Deletes a product by ID
+function deleteProduct(id) {
+  fetch(`http://localhost:3000/menu/${id}`, { method: "DELETE" })
+    .then(() => getProducts());
+}
+
+// Prepares the form to edit a selected product
+function prepareEdit(product) {
+  document.getElementById("name").value = product.name;
+  document.getElementById("price").value = product.price;
+
+  const btn = document.getElementById("btn-action");
+  btn.textContent = "Save";
+  btn.onclick = () => confirmEdit(product.id);
+}
+
+// Confirms and sends edited product data to the API
+function confirmEdit(id) {
+  const name = document.getElementById("name").value.trim();
+  const price = parseFloat(document.getElementById("price").value);
+  if (!name || isNaN(price)) return;
+
+  fetch(`http://localhost:3000/menu/${id}`, {
     method: "PUT",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(updatedProduct),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, price })
   })
-    .then((response) => response.json())
-    .then((data) => console.log(`Product updated: ${data}`))
-    .catch((error) => console.error(`Error updating data: ${error}`));
+    .then(res => res.json())
+    .then(() => {
+      clearFields();
+      getProducts();
+      resetButton();
+    });
 }
 
-// delete method to delete an existing product
-fetch("http://localhost:3000/menu/6", {
-  method: "DELETE",
-})
-  .then(() => console.log(`Product deleted succesfully`))
-  .catch((error) => console.error(`Error deleting data: ${error}`));
+// Resets the main button to add mode
+function resetButton() {
+  const btn = document.getElementById("btn-action");
+  btn.textContent = "Add";
+  btn.onclick = addProduct;
+}
 
-  
-//function to validate if the product doesn't exist in the json db and if it is a number, if it doesn't shows an error message
-function validateProduct(product) {
-  if (!product.name || typeof product.price != "number") {
-    console.error("Invalid product data.");
-    return false;
-  }
-  return true;
+// Clears input fields
+function clearFields() {
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
 }

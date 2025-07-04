@@ -1,19 +1,14 @@
 {
   "menu": [
     {
-      "id": "1",
       "name": "tofu sushi burrito",
-      "price": 28000
+      "price": 29000,
+      "id": "1"
     },
     {
       "id": "2",
       "name": "pepita roll",
       "price": 30000
-    },
-    {
-      "name": "pepita roll",
-      "price": 29000,
-      "id": "3"
     },
     {
       "id": "4",
@@ -26,17 +21,17 @@
       "price": 28000
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "seitan sushi burrito",
       "price": 32000
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "seitan sushi burrito",
       "price": 32000
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "seitan sushi burrito",
       "price": 32000
     }
