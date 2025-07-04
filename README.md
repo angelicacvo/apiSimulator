@@ -1,95 +1,78 @@
-Product Management App – Week 3 Training
-Description
-This project is part of the Week 3 training from Module 3, focused on learning how to work with APIs, HTTP methods, and basic CRUD operations. The application simulates a simple product manager using a local server created with JSON Server and allows users to perform asynchronous operations through the Fetch API.
+# Product Management App – Week 3 Training
 
-Objectives
-Simulate a backend using JSON Server.
+## Description
 
-Perform Create, Read, Update, and Delete (CRUD) operations with Fetch API.
+This project is part of the Week 3 training from Module 3. It focuses on interacting with simulated servers using JSON Server and managing data through HTTP methods using Fetch API. The app allows basic CRUD operations to manage a product list.
 
-Apply HTTP methods: GET, POST, PUT, and DELETE.
+---
 
-Handle API responses and errors correctly.
+## Objectives
 
-Practice interaction with APIs using the JSON format.
+- Simulate a backend using JSON Server.
+- Perform Create, Read, Update, and Delete (CRUD) operations with Fetch API.
+- Apply HTTP methods: GET, POST, PUT, and DELETE.
+- Handle API responses and possible errors.
+- Practice working with APIs using JSON data format.
 
-Features
-Add new products with name and price.
+---
 
-View the complete product list.
+## Technologies Used
 
-Edit an existing product.
+- HTML5  
+- JavaScript (Vanilla)  
+- JSON Server  
+- Fetch API  
+- Bootstrap 5 (CDN)
 
-Delete products.
+---
 
-Buttons and fields update dynamically based on user actions.
+## Features
 
-Uses Bootstrap 5 for basic responsive styling.
+- Add new menu with name and price.
+- View all registered menu.
+- Edit and update product information.
+- Delete menu.
+- Responsive and clean interface using Bootstrap.
 
-Technologies Used
-HTML5
+---
 
-JavaScript (Vanilla)
+## File Structure
 
-JSON Server
-
-Fetch API
-
-Bootstrap 5 (via CDN)
-
-How to Use
-Install JSON Server (if not installed):
-
-bash
-Copiar
-Editar
-npm install -g json-server
-Create a db.json file with the following initial structure:
-
-json
-Copiar
-Editar
-{
-  "products": []
-}
-Start the server:
-
-bash
-Copiar
-Editar
-json-server --watch db.json
-Open index.html in your browser.
-Ensure the server is running at http://localhost:3000.
-
-File Structure
-pgsql
-Copiar
-Editar
 project/
 │
-├── index.html        # Main HTML file with Bootstrap integration
-├── script.js         # JavaScript file with CRUD logic using Fetch
-└── db.json           # JSON Server database (created by the user)
-Notes
-All product data is stored locally in db.json.
+├── index.html # Main HTML page with Bootstrap integration
+├── script.js # JavaScript with CRUD logic using Fetch API
+└── db.json # Simulated database (created manually)
 
-The app communicates with http://localhost:3000/products.
+---
 
-Variable names and functions follow camelCase naming.
+## How to Use
 
-The code includes brief comments for better understanding.
+1. **Install JSON Server** globally if not already installed:
+   ```bash
+   npm install -g json-server
+Create a file named db.json with the following content:
 
-Bootstrap is included via CDN; no installation required.
+# json:
+{
+  "menu": []
+}
+Run the server from the directory containing db.json:
+json-server --watch db.json
+Open index.html in a web browser.
 
-Requirements Met
-Use of JSON Server to simulate an API.
+- Make sure the server is running at http://localhost:3000.
 
-Implementation of all CRUD operations (Create, Read, Update, Delete).
+## Requirements:
+Simulated API created with JSON Server.
 
-Use of HTTP methods: GET, POST, PUT, DELETE.
+All CRUD operations implemented using Fetch API.
 
-Code commented and written using camelCase.
+HTTP methods used: GET, POST, PUT, DELETE.
 
-Visual interface styled with Bootstrap.
+CamelCase naming and commented code.
 
-Local asynchronous operations handled with Fetch API.
+UI with Bootstrap.
+
+Validation of inputs and proper response handling.
+
